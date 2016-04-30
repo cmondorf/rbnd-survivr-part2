@@ -11,9 +11,11 @@ class Tribe
   def @members.first
   end
 
+  def eliminate(member)
+    @members.delete(member)
+  end
 
-
-  def tribal_council options={}
+  def tribal_council(options={})
     @members.reject{ |member| member == options[:immune]}.sample
   end
 

@@ -11,18 +11,26 @@ class Game
   end
 
   def immunity_challenge
-    @tribes[0]
+    @tribes.sample
   end
 
-  def merge(tribe_name)
-    members_to_add = []
-    members_to_add[0] = @tribes[0].members[0]
-    members_to_add[1] = @tribes[1].members[0]
-    Tribe.new({name: tribe_name, members: members_to_add })
+  def merge(name)
+    members = []
+    @tribes.each do |tribe|
+      tribe.members.each do |member|
+        members << member
+      end
+    end
+    clear_tribes
+    @tribes[0] = Tribe.new(name: name, members: members)
   end
 
   def individual_immunity_challenge
-    @tribes[0].members[0]
+    @tribes[0].members.sample
+  end
+
+  def individual_immunity_challenge_2
+    @tribes[0].members.sample(2)
   end
 
   def clear_tribes
