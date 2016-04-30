@@ -12,9 +12,10 @@ class Jury
   end
 
   def cast_votes(finalists)
+    puts "Jury Phase Starting".yellow
     finalists.each  { |finalist| @cast_votes[finalist]= 0}
     members.each do |member|
-      puts "#{member} is voting for #{finalists.sample}"
+      puts "#{member} is voting for #{finalists.sample}".green
       @cast_votes[finalists.sample] += 1
     end
    @cast_votes
@@ -25,11 +26,12 @@ class Jury
   end
 
   def report_votes(cast_votes)
-    cast_votes.each_pair { |key, value| puts "#{key} got #{value} votes"}
+    cast_votes.each_pair { |key, value| puts "#{key} got #{value} votes".yellow}
   end
 
   def announce_winner(cast_votes)
-    return cast_votes.max_by {|k,v| v}[0]
+    puts "The winner is: #{cast_votes.max_by {|k,v| v}[0]}".yellow
+    puts "#{cast_votes.min_by {|k,v| v}[0]} is defeated!".red
   end
 
 end

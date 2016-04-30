@@ -2,10 +2,11 @@ class Tribe
 
   attr_accessor :name, :members
 
+
   def initialize(options ={})
     @name = options[:name]
     @members = options[:members]
-    puts "#{name} tribe created. It has #{members.length} members"
+    puts "#{name} tribe created. It has #{members.length} members".green
   end
 
   def @members.first

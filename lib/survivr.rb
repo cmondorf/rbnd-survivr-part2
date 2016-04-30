@@ -1,3 +1,4 @@
+require "colorizr"
 require_relative "game"
 require_relative "tribe"
 require_relative "contestant"
@@ -19,50 +20,57 @@ require_relative "jury"
 
 
 #This is where you will write your code for the three phases
+# @@available_colors = String.colors
+
+
 def phase_one
+  puts "Phase 1 Starting".yellow
   counter = 8
   eliminated = []
   while counter > 0
     indexer = 8 - counter
-    puts "Phase one, round #{(indexer+1).to_s}:"
+    puts "Phase one, round #{(indexer+1).to_s}:".green
     tribe_selected = @borneo.immunity_challenge
-    puts "Tribe selected: #{tribe_selected.to_s}"
+    puts "Tribe selected: #{tribe_selected.to_s}".green
     eliminated[indexer] = tribe_selected.tribal_council
     tribe_selected.members.delete(eliminated[indexer])
-    puts "Contestant #{eliminated[indexer]} was eliminated without mercy!"
+    puts "Contestant #{eliminated[indexer]} was eliminated without mercy!".red
     counter -= 1
   end
   eliminated.length # this is here to pass the test, but no sure it's ver useful beyond that
 end
 
 def phase_two
+  puts "Phase 2 Starting".yellow
   eliminated_candidates = []
   counter = 3
   while counter > 0
     indexer = 3-counter
-    puts "Phase 2, round #{(indexer+1).to_s}"
+    puts "Phase 2, round #{(indexer+1).to_s}".green
     # confer immunity
     current_eliminations = @borneo.individual_immunity_challenge_2
-    puts "#{current_eliminations[0]} is immune in this round. #{current_eliminations[1]} was cruelly eliminated."
+    puts "#{current_eliminations[0]} is immune in this round.".green
+    puts "#{current_eliminations[1]} was cruelly eliminated.".red
     eliminated_candidates[indexer] = current_eliminations[1]
     @merge_tribe.eliminate(eliminated_candidates[indexer])
     counter -= 1
   end
   result_phase_two = eliminated_candidates.length
-  puts "As a result of Phase two, #{result_phase_two.to_s} candidates were eliminated."
+  puts "As a result of Phase two, #{result_phase_two.to_s} candidates were eliminated.".green
   result_phase_two
 end
 
 def phase_three
+  puts "Phase 3 Starting".yellow
   counter = 7
   while counter > 0
     indexer = 7 - counter
     @jury.add_member(@merge_tribe.members.sample)
     @merge_tribe.members.delete(@jury.members[indexer])
-    puts "Contestant #{@jury.members[indexer]} has been added to the jury."
+    puts "Contestant #{@jury.members[indexer]} has been added to the jury.".green
     counter -= 1
   end
-  puts "Total number of jury members: #{@jury.members.length}"
+  puts "Total number of jury members: #{@jury.members.length}".green
   7
 end
 
