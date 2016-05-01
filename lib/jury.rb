@@ -12,13 +12,14 @@ class Jury
   end
 
   def cast_votes(finalists)
-    puts "Jury Phase Starting".yellow
-    finalists.each  { |finalist| @cast_votes[finalist]= 0}
-    members.each do |member|
-      puts "#{member} is voting for #{finalists.sample}".green
-      @cast_votes[finalists.sample] += 1
+    @cast_votes = {}
+    finalists.each  { |finalist| @cast_votes[finalist]=0}
+    @members.each do |member|
+      sampled_finalist = finalists.sample
+      puts "#{member} is voting for #{sampled_finalist}"
+      @cast_votes[sampled_finalist] += 1
     end
-   @cast_votes
+    @cast_votes
   end
 
   def add_member(new_member)
@@ -26,12 +27,17 @@ class Jury
   end
 
   def report_votes(cast_votes)
-    cast_votes.each_pair { |key, value| puts "#{key} got #{value} votes".yellow}
+    # total_votes = 0
+    cast_votes.each_pair { |key, value| puts "#{key} got #{value} votes"}
+    # @cast_votes.each {|k,v| total_votes += v}
+    # puts "Total votes: #{total_votes}"
   end
 
   def announce_winner(cast_votes)
-    puts "The winner is: #{cast_votes.max_by {|k,v| v}[0]}".yellow
-    puts "#{cast_votes.min_by {|k,v| v}[0]} is defeated!".red
+    winner = cast_votes.max_by {|k,v| v}[0]
+    puts "The winner is: #{winner}".yellow
+    winner
+    #puts "#{cast_votes.min_by {|k,v| v}[0]} is defeated!"
   end
 
 end
