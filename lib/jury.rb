@@ -34,7 +34,7 @@ class Jury
   end
 
   def announce_winner(cast_votes)
-    winner = cast_votes.max_by {|k,v| v}[0]
+    winner = cast_votes.max_by {|contestant,votes| votes}[0]
     puts "The winner is: #{winner}".yellow
     winner
     #puts "#{cast_votes.min_by {|k,v| v}[0]} is defeated!"

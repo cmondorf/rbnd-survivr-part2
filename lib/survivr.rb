@@ -31,9 +31,6 @@ def phase_one
     puts "Phase one, round #{(indexer+1).to_s}:".green
     tribe_selected = @borneo.immunity_challenge
     puts "Tribe selected: #{tribe_selected.to_s}".green
-    # eliminated[indexer] = tribe_selected.tribal_council
-    # tribe_selected.members.delete(eliminated[indexer])
-
     puts "Contestant #{tribe_selected.tribal_council} was eliminated without mercy!".red
     counter -= 1
   end
@@ -42,17 +39,12 @@ end
 
 def phase_two
   puts "Phase 2 Starting".yellow
-  eliminated_candidates = []
+  immune_candidates = []
   counter = 3
   while counter > 0
     indexer = 3-counter
     puts "Phase 2, round #{(indexer+1).to_s}".green
-    # confer immunity
-    # current_eliminations = @borneo.individual_immunity_challenge_2
-    # puts "#{current_eliminations[0]} is immune in this round.".green
-    puts "#{@merge_tribe.tribal_council} was cruelly eliminated.".red
-    # eliminated_candidates[indexer] = current_eliminations[1]
-    # @merge_tribe.eliminate(eliminated_candidates[indexer])
+    puts "#{@merge_tribe.tribal_council(immune: @borneo.individual_immunity_challenge)} was cruelly eliminated.".red
     counter -= 1
   end
   result_phase_two = indexer+1
@@ -65,7 +57,7 @@ def phase_three
   counter = 7
   while counter > 0
     indexer = 7 - counter
-    @jury.add_member(@merge_tribe.tribal_council)
+    @jury.add_member(@merge_tribe.tribal_council(immune: @borneo.individual_immunity_challenge))
     @merge_tribe.members.delete(@jury.members[indexer])
     puts "Contestant #{@jury.members[indexer]} has been added to the jury.".green
     counter -= 1

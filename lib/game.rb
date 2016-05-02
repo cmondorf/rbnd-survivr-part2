@@ -29,10 +29,6 @@ class Game
     @tribes.first.members.sample
   end
 
-  def individual_immunity_challenge_2
-    @tribes[0].members.sample(2)
-  end
-
   def clear_tribes
     @tribes.clear
   end

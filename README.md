@@ -18,12 +18,16 @@
 ## survivr.rb
 
 - now using `tribal_council`to extract the immune member and add them to the jury.
+- immunity challenge results are now taken into account when running tribal council.
 
 ## tribe.rb
 
 - "eliminate" method removed, replaced with updated `tribal_council`
 - tribal council method folded into phases one and two
 
+## game.rb
+
+- `individual_immunity_challenge_2` method removed
 
 
 
